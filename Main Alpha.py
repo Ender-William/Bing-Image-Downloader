@@ -106,7 +106,7 @@ def SaveImage(link,InputData,count,overtime):
                 file.write(data)#每次只写入data大小
                 size = len(data)+size
                 #'r'每次重新从开始输出，end = ""是不换行
-                print('\r'+"【"+str(round(float(size/content_size)*100,2))+"%"+"】"+"已经下载："+int(size/content_size*50)*"█"+" 【"+str(round(size/chunk_size/1024,2))+"MiB】",end="")
+                print('\r'+"【"+str(round(float(size/content_size)*100,2))+"%"+"】"+"已经下载："+int(size/content_size*30)*"█"+" 【"+str(round(size/chunk_size/1024,2))+"MiB】",end="")
         end = time.time()
         print("")
         print("保存图片耗时耗时:"+str(end-start)+"秒")
