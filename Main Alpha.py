@@ -68,7 +68,8 @@ def SaveImage(link,InputData,count,overtime):
         print("正在下载图片，请稍后")
         content = "正在下载图片，请稍后"
         window.Element('_Multiline_').Update(content)
-        urllib.request.urlretrieve(link,'./'+InputData+'/'+str(count)+'.png')
+        urllib.request.urlretrieve(link,'./'+InputData+'/'+str(count)+'.jpg')
+        urllib.request.urlretrieve(link,'./'+"Preview"+'/'+str(count)+'.png')
     except socket.timeout:
         time.sleep(0.1)
         print("链接超时")
@@ -90,9 +91,9 @@ def SaveImage(link,InputData,count,overtime):
         window.Element('Picture_Num').Update(content)
         time.sleep(0.1)
         
-        Path ='./'+InputData+'/'+str(count)+'.png'
+        Path ='./'+"Preview"+'/'+str(count)+'.png'
         picture_type = 'png'
-        newpath = InputData
+        newpath = 'Preview'
         if not os.path.exists(newpath):
             os.mkdir(newpath)
         
@@ -127,6 +128,8 @@ def main(PageNum,InputData,word,overtime):
         #创建文件夹
         if not os.path.exists("./" + word):
             os.mkdir('./' + word)
+        if not os.path.exists("./" + "Preview"):
+            os.mkdir('./' + "Preview")
         for StepOne in soup.select('.iusc'):
             
             link=StepOne.attrs['href']
@@ -184,7 +187,7 @@ def Start_Search ():
     main(PageNum,InputData,word,overtime)
 
 
-# In[7]:
+# In[6]:
 
 
 import PySimpleGUI as sg
