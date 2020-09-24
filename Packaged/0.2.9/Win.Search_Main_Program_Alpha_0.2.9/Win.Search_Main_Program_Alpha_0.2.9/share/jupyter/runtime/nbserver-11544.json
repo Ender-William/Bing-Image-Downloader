@@ -1,0 +1,11 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "D:\\FTP KD\\Search_Lab",
+  "password": false,
+  "pid": 11544,
+  "port": 8889,
+  "secure": false,
+  "token": "9d85db79c6db2e7a305e54a21c940eaef7778484293f935d",
+  "url": "http://localhost:8889/"
+}

@@ -1,0 +1,11 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "D:\\Search_Lab",
+  "password": false,
+  "pid": 2608,
+  "port": 8888,
+  "secure": false,
+  "token": "97d3821b6312e137dcbdba2a9f0d83b49a5f3fa46139e4db",
+  "url": "http://localhost:8888/"
+}
