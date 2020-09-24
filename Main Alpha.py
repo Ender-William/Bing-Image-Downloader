@@ -90,20 +90,24 @@ def SaveImage(link,InputData,count,overtime):
         content = str(count)
         window.Element('Picture_Num').Update(content)
         time.sleep(0.1)
-        
-        Path ='./'+"Preview"+'/'+str(count)+'.png'
-        picture_type = 'png'
-        newpath = 'Preview'
-        if not os.path.exists(newpath):
-            os.mkdir(newpath)
-        
-        #portion = os.path.splitext(Path)
-        #print('convert  ' + newpath +'  to '+portion[0]+'.'+picture_type)
-        img = cv2.imread(Path)
-        cv2.imwrite("./"+newpath+"/"+str(count)+'.'+picture_type,img)
-        #photo = ImageTk.PhotoImage(file=Path)
-        NPATH = "./"+newpath+"/"+str(count)+'.'+picture_type
-        window.Element('Image').Update(NPATH,size=(1100, 1100),visible=True)
+        try:
+            Path ='./'+"Preview"+'/'+str(count)+'.png'
+            picture_type = 'png'
+            newpath = 'Preview'
+            if not os.path.exists(newpath):
+                os.mkdir(newpath)
+
+            #portion = os.path.splitext(Path)
+            #print('convert  ' + newpath +'  to '+portion[0]+'.'+picture_type)
+            img = cv2.imread(Path)
+            cv2.imwrite("./"+newpath+"/"+str(count)+'.'+picture_type,img)
+            #photo = ImageTk.PhotoImage(file=Path)
+            NPATH = "./"+newpath+"/"+str(count)+'.'+picture_type
+            window.Element('Image').Update(NPATH,size=(1100, 1100),visible=True)
+        except:
+            content = 'CV2 模组错误，无法预览图片'
+            window.Element('_Multiline_').Update(content)
+            time.sleep(0.1)
 
 
 # In[4]:
