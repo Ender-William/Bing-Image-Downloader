@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import time#引入time，计算下载时间
 
 
-# In[ ]:
+# In[2]:
 
 
 print("___    __    _________          ")
@@ -31,9 +31,9 @@ print("作者：KDKDKD！")
 time.sleep(0.1)
 print("部分代码来自于开源社区")
 time.sleep(0.1)
-print("版本 Alpha 0.3.0")
+print("版本 Alpha 0.3.1")
 time.sleep(0.1)
-print("时间：2020-10-18")
+print("时间：2020-11-02")
 time.sleep(0.1)
 print("本软件切勿用于非法用途！")
 time.sleep(0.1)
@@ -42,7 +42,7 @@ time.sleep(0.5)
 print("----------------------------------")
 
 
-# In[ ]:
+# In[3]:
 
 
 print("import PySimpleGUI as sg")
@@ -96,7 +96,7 @@ print("Python库加载完毕")
 print("----------------------------------")
 
 
-# In[ ]:
+# In[4]:
 
 
 '''
@@ -124,44 +124,7 @@ class MyThread(threading.Thread):
         
 
 
-# In[ ]:
-
-
-
-'''
-此段程序是为了完成线程启动、暂停、重启
-以及线程终止的，方便用户在搜索完一个类
-型的照片或者终止检索一种类型的照片之后
-不必重启程序，从而可以继续搜索其他照片
-而使用.
-
-class MyThread(threading.Thread):
-    def __init__(self, func, *args):
-        super().__init__()
-
-        self.func = func
-        self.args = args
-
-        self.setDaemon(True)
-        self.start()  # 在这里开始
-
-    def run(self):
-        self.func(*self.args)      # 为True时立即返回, 为False时阻塞直到内部的标识位为True后返回
-            
-
-    def pause(self):
-        self.__flag.clear()     # 设置为False, 让线程阻塞
-
-    def resume(self):
-        self.__flag.set()    # 设置为True, 让线程停止阻塞
-
-    def stop(self):
-        self.__flag.set()       # 将线程从暂停状态恢复, 如何已经暂停的话
-        self.__running.clear()        # 设置为False    
-'''
-
-
-# In[ ]:
+# In[5]:
 
 
 '''
@@ -188,7 +151,7 @@ def stop_thread(thread):
     _async_raise(thread.ident, SystemExit)
 
 
-# In[ ]:
+# In[6]:
 
 
 def SaveImage(link,InputData,count,overtime):
@@ -241,9 +204,8 @@ def SaveImage(link,InputData,count,overtime):
             picture_type = 'png'
             newpath = 'Preview'
             
+
             
-            #portion = os.path.splitext(Path)
-            #print('convert  ' + newpath +'  to '+portion[0]+'.'+picture_type)
             img = cv2.imread(Path)
             NPATH = "./"+newpath+"/"+str(count)+'.'+picture_type
 
@@ -275,19 +237,8 @@ def SaveImage(link,InputData,count,overtime):
                     cv2.imwrite(NPATH,img)
 
 
-
-
-            #img = cv2.resize(img,(500,500))
-            #cv2.imwrite(NPATH,img)
             img = cv2.imread(NPATH)
             cv2.imwrite("./"+newpath+"/"+str(count)+'.'+picture_type,img)
-
-            #image = cv2.imread(NPATH)
-            #image = cv2.resize(image,(500),interpolation=cv2.INTER_AREA)
-            #cv2.imwrite("./"+newpath+"/"+str(count)+'.'+picture_type,img)
-            #photo = ImageTk.PhotoImage(file=Path)
-
-
             window.Element('Image').Update(NPATH,size=(500, 500),visible=True)
 
         except:
@@ -296,7 +247,7 @@ def SaveImage(link,InputData,count,overtime):
             time.sleep(0.1)
 
 
-# In[ ]:
+# In[7]:
 
 
 # 主函数
@@ -362,9 +313,11 @@ def main(PageNum,InputData,word,overtime):
             #print('URL OPENING ERROR !')
     content = "完成下载"
     window.Element('_Multiline_').Update(content)
+    window.Element('_STOP_').Update(disabled = True)
+    window.Element('_START_').Update(disabled = False)
 
 
-# In[ ]:
+# In[8]:
 
 
 def Start_Search ():
@@ -377,7 +330,7 @@ def Start_Search ():
     main(PageNum,InputData,word,overtime)
 
 
-# In[ ]:
+# In[9]:
 
 
 # 创建布局
@@ -385,7 +338,8 @@ layout = [
     [sg.Text('请输入页数',font=(30), justification='center'), sg.Input(key='_PageNum_',size = (50,1))],
     [sg.Text('请输入时长',font=(30), justification='center'), sg.Input(key='_OverTime_',size = (50,1))],
     [sg.Text('输入关键字',font=(30), justification='center'), sg.Input(key='_KeyWords_',size = (50,1))],
-    [sg.Btn('开始检索', key='_START_',font=(30)),sg.Btn('终止检索', key='_STOP_',font=(30),disabled=True)],
+    [sg.Btn('开始检索', key='_START_',font=(30),disabled=False),
+     sg.Btn('终止检索', key='_STOP_',font=(30),disabled=True)],
     [sg.Text('已有图片张数：',font=(30), justification='center'),
      sg.Text('0',key ='Picture_Num',size = (5,1),font=(30), justification='center')],
     [sg.Multiline('还未开始检索', key = '_Multiline_',size = (40,10),autoscroll = True ,font=(30)),
@@ -395,7 +349,7 @@ layout = [
 
 # 创建窗口，引入布局，并进行初始化
 # 创建时，必须要有一个名称，这个名称会显示在窗口上
-window = sg.Window('Picture search and downloader Alpha 0.3.0', layout=layout, finalize=True)
+window = sg.Window('Picture search and downloader Alpha 0.3.1', layout=layout, finalize=True)
 
 
 #Start_Search = MyThread
@@ -408,8 +362,10 @@ while True:  # 创建一个事件循环，否则窗口运行一次就会被关�
     if event is None:   # 如果事件的值为 None，表示点击了左上角的关闭按钮
         break
     if event == '_STOP_':   # 
+        window.Element('_START_').Update(disabled = False)
         window.Element('_STOP_').Update(disabled = True)
         content = "正在终止检索"
+        print(content)
         window.Element('_Multiline_').Update(content)
         time.sleep(1)
         #break
@@ -417,22 +373,17 @@ while True:  # 创建一个事件循环，否则窗口运行一次就会被关�
         #MyThread.pause
         MyThread.join()
         content = "正在回收线程"
+        print(content)
         window.Element('_Multiline_').Update(content)
         time.sleep(1)
         #window.Element('_STOP_').Update(disabled = True)
         content = "已经终止检索"
+        print(content)
         window.Element('_Multiline_').Update(content)
-        
     if event == '_START_':  # 当获取到事件时，处理逻辑
         MyThread = threading.Thread(target=Start_Search)
         MyThread.start()
-
-
-        #print(InputData)
-        #MyThread(Start_Search)
-        #Start_Search = MyThread
-        #Start_Search.start(Start_Search)
-        
+        window.Element('_START_').Update(disabled = True)
         window.Element('_STOP_').Update(disabled = False)
 
 
